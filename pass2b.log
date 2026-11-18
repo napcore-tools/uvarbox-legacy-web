@@ -1,0 +1,155 @@
+pass 2b: 81
+[1/81] /wp-admin/
+[2/81] /wp-includes/fonts/dashicons.eot
+  MISSING /wp-includes/fonts/dashicons.eot
+[3/81] /wp-includes/fonts/dashicons.ttf
+  MISSING /wp-includes/fonts/dashicons.ttf
+[4/81] /wp-json/
+[5/81] /wp-json/oembed/1.0/embed
+  MISSING /wp-json/oembed/1.0/embed
+[6/81] /wp-json/wp/v2/categories/1
+  MISSING /wp-json/wp/v2/categories/1
+[7/81] /wp-json/wp/v2/categories/10
+  MISSING /wp-json/wp/v2/categories/10
+[8/81] /wp-json/wp/v2/categories/11
+  MISSING /wp-json/wp/v2/categories/11
+[9/81] /wp-json/wp/v2/categories/5
+  MISSING /wp-json/wp/v2/categories/5
+[10/81] /wp-json/wp/v2/categories/6
+  MISSING /wp-json/wp/v2/categories/6
+[11/81] /wp-json/wp/v2/categories/7
+  MISSING /wp-json/wp/v2/categories/7
+[12/81] /wp-json/wp/v2/categories/8
+  MISSING /wp-json/wp/v2/categories/8
+[13/81] /wp-json/wp/v2/categories/9
+  MISSING /wp-json/wp/v2/categories/9
+[14/81] /wp-json/wp/v2/pages/1031
+[15/81] /wp-json/wp/v2/pages/1044
+  MISSING /wp-json/wp/v2/pages/1044
+[16/81] /wp-json/wp/v2/pages/1189
+  retry 1 (<urlopen error [Errno 61] Connection refused>) https://web.archive.org/web/2026id_/https://uvarbox.eu/wp-json/wp/v2/pages/1189
+[17/81] /wp-json/wp/v2/pages/1327
+  MISSING /wp-json/wp/v2/pages/1327
+[18/81] /wp-json/wp/v2/pages/1392
+  MISSING /wp-json/wp/v2/pages/1392
+[19/81] /wp-json/wp/v2/pages/1522
+  MISSING /wp-json/wp/v2/pages/1522
+[20/81] /wp-json/wp/v2/pages/1582
+  MISSING /wp-json/wp/v2/pages/1582
+[21/81] /wp-json/wp/v2/pages/1723
+  MISSING /wp-json/wp/v2/pages/1723
+[22/81] /wp-json/wp/v2/pages/1727
+  MISSING /wp-json/wp/v2/pages/1727
+[23/81] /wp-json/wp/v2/pages/1730
+[24/81] /wp-json/wp/v2/pages/1733
+[25/81] /wp-json/wp/v2/pages/2028
+  MISSING /wp-json/wp/v2/pages/2028
+[26/81] /wp-json/wp/v2/pages/2103
+  MISSING /wp-json/wp/v2/pages/2103
+[27/81] /wp-json/wp/v2/pages/30
+[28/81] /wp-json/wp/v2/pages/31
+[29/81] /wp-json/wp/v2/pages/32
+  MISSING /wp-json/wp/v2/pages/32
+[30/81] /wp-json/wp/v2/pages/33
+  retry 1 (<urlopen error [Errno 61] Connection refused>) https://web.archive.org/web/2026id_/https://uvarbox.eu/wp-json/wp/v2/pages/33
+[31/81] /wp-json/wp/v2/pages/4
+  MISSING /wp-json/wp/v2/pages/4
+[32/81] /wp-json/wp/v2/pages/424
+  MISSING /wp-json/wp/v2/pages/424
+[33/81] /wp-json/wp/v2/pages/735
+[34/81] /wp-json/wp/v2/pages/969
+[35/81] /wp-json/wp/v2/posts/1515
+  MISSING /wp-json/wp/v2/posts/1515
+[36/81] /wp-json/wp/v2/posts/1565
+  MISSING /wp-json/wp/v2/posts/1565
+[37/81] /wp-json/wp/v2/posts/1608
+  MISSING /wp-json/wp/v2/posts/1608
+[38/81] /wp-json/wp/v2/posts/1654
+  MISSING /wp-json/wp/v2/posts/1654
+[39/81] /wp-json/wp/v2/posts/1660
+  MISSING /wp-json/wp/v2/posts/1660
+[40/81] /wp-json/wp/v2/posts/1668
+  MISSING /wp-json/wp/v2/posts/1668
+[41/81] /wp-json/wp/v2/posts/1687
+  MISSING /wp-json/wp/v2/posts/1687
+[42/81] /wp-json/wp/v2/posts/1697
+  MISSING /wp-json/wp/v2/posts/1697
+[43/81] /wp-json/wp/v2/posts/1709
+  MISSING /wp-json/wp/v2/posts/1709
+[44/81] /wp-json/wp/v2/posts/1932
+  MISSING /wp-json/wp/v2/posts/1932
+[45/81] /wp-json/wp/v2/posts/1992
+  MISSING /wp-json/wp/v2/posts/1992
+[46/81] /wp-json/wp/v2/posts/2007
+  MISSING /wp-json/wp/v2/posts/2007
+[47/81] /wp-json/wp/v2/posts/2016
+  MISSING /wp-json/wp/v2/posts/2016
+[48/81] /wp-json/wp/v2/posts/2022
+  retry 1 (<urlopen error [Errno 61] Connection refused>) https://web.archive.org/web/2026id_/https://uvarbox.eu/wp-json/wp/v2/posts/2022
+  MISSING /wp-json/wp/v2/posts/2022
+[49/81] /wp-json/wp/v2/posts/2145
+  MISSING /wp-json/wp/v2/posts/2145
+[50/81] /wp-json/wp/v2/posts/2198
+  MISSING /wp-json/wp/v2/posts/2198
+[51/81] /wp-json/wp/v2/posts/2221
+[52/81] /wp-json/wp/v2/posts/2335
+[53/81] /wp-json/wp/v2/posts/2364
+  MISSING /wp-json/wp/v2/posts/2364
+[54/81] /wp-json/wp/v2/posts/2375
+  MISSING /wp-json/wp/v2/posts/2375
+[55/81] /wp-json/wp/v2/posts/2388
+  MISSING /wp-json/wp/v2/posts/2388
+[56/81] /wp-json/wp/v2/posts/2435
+  MISSING /wp-json/wp/v2/posts/2435
+[57/81] /wp-json/wp/v2/posts/2460
+  MISSING /wp-json/wp/v2/posts/2460
+[58/81] /wp-json/wp/v2/posts/2521
+  MISSING /wp-json/wp/v2/posts/2521
+[59/81] /wp-json/wp/v2/posts/2542
+  MISSING /wp-json/wp/v2/posts/2542
+[60/81] /wp-json/wp/v2/posts/2652
+  MISSING /wp-json/wp/v2/posts/2652
+[61/81] /wp-json/wp/v2/posts/3
+  MISSING /wp-json/wp/v2/posts/3
+[62/81] /wp-json/wp/v2/posts/701
+  MISSING /wp-json/wp/v2/posts/701
+[63/81] /wp-json/wp/v2/posts/796
+  MISSING /wp-json/wp/v2/posts/796
+[64/81] /wp-json/wp/v2/tags/17
+  MISSING /wp-json/wp/v2/tags/17
+[65/81] /wp-json/wp/v2/tags/18
+  MISSING /wp-json/wp/v2/tags/18
+[66/81] /wp-json/wp/v2/tags/19
+  retry 1 (<urlopen error [Errno 61] Connection refused>) https://web.archive.org/web/2026id_/https://uvarbox.eu/wp-json/wp/v2/tags/19
+  MISSING /wp-json/wp/v2/tags/19
+[67/81] /wp-json/wp/v2/tags/20
+  MISSING /wp-json/wp/v2/tags/20
+[68/81] /wp-json/wp/v2/tags/21
+  MISSING /wp-json/wp/v2/tags/21
+[69/81] /wp-json/wp/v2/tags/22
+  MISSING /wp-json/wp/v2/tags/22
+[70/81] /wp-json/wp/v2/tags/23
+  MISSING /wp-json/wp/v2/tags/23
+[71/81] /wp-json/wp/v2/tags/24
+  MISSING /wp-json/wp/v2/tags/24
+[72/81] /wp-json/wp/v2/tags/25
+  MISSING /wp-json/wp/v2/tags/25
+[73/81] /wp-json/wp/v2/tags/26
+  MISSING /wp-json/wp/v2/tags/26
+[74/81] /wp-json/wp/v2/tags/30
+  MISSING /wp-json/wp/v2/tags/30
+[75/81] /wp-json/wp/v2/tags/31
+  MISSING /wp-json/wp/v2/tags/31
+[76/81] /wp-json/wp/v2/tags/32
+  MISSING /wp-json/wp/v2/tags/32
+[77/81] /wp-json/wp/v2/tags/33
+  MISSING /wp-json/wp/v2/tags/33
+[78/81] /wp-json/wp/v2/tags/34
+  MISSING /wp-json/wp/v2/tags/34
+[79/81] /wp-json/wp/v2/users/1
+  MISSING /wp-json/wp/v2/users/1
+[80/81] /wp-json/wp/v2/users/2
+  MISSING /wp-json/wp/v2/users/2
+[81/81] /wp-json/wp/v2/users/3
+  MISSING /wp-json/wp/v2/users/3
+exit 0
