@@ -47,6 +47,7 @@ python3 -I scripts/build_pages.py site _site --base-url https://napcore-tools.gi
 | `vendor-pkgs/` | Official wordpress.org packages used to restore plugin assets |
 | `missing.txt` | Everything referenced but not archived (incl. resized image variants) |
 | `lost-images.txt` | Images with no archived copy in any size |
+| `wanted.md` | Files still missing or broken, by priority, with the pages using them |
 | `screenshots/` | Headless Chrome renders of key pages |
 
 Each page is the **latest** archived capture (most from 2024–2026).
