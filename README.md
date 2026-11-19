@@ -68,6 +68,16 @@ Each page is the **latest** archived capture (most from 2024–2026).
    original survived (only 3 could be).
 6. `scripts/fix_images.py site` — removed `srcset` entries pointing to missing
    files and switched missing `src` to the largest surviving size.
+7. Files that Elementor loads from JavaScript at runtime, which the crawler
+   never saw: the 22 webpack widget chunks (`assets/js/*.bundle.min.js`,
+   e.g. toggle, accordion, tabs, lightbox), `lib/swiper/v8/swiper.min.js` and
+   `css/conditionals/{dialog,lightbox}.min.css`, copied from Elementor 3.29.2.
+   Chunk file names contain a content hash fixed in `webpack.runtime.min.js`,
+   and the archived runtime, `frontend.min.js` and `frontend-modules.min.js`
+   were older 3.28.0 captures, so they were replaced with their 3.29.2
+   versions too. All pages request `ver=3.29.2`, the version the site ran when
+   they were captured. The missing gallery bundle `pa-frontend-9baf52c27` is a
+   copy of the identical gallery bundle used by the other gallery pages.
 
 ## Known gaps (never archived)
 
@@ -75,9 +85,12 @@ Each page is the **latest** archived capture (most from 2024–2026).
   without it) and several stock/event photos — see `lost-images.txt`.
 - **9 attachments**: 7 PPTX/DOCX presentations and agendas, a submission sheet,
   `scriptTableUvarSimple.zip`. All 67 PDFs are present.
-- **Elementor layout CSS for 5 posts** (`post-32/701/796/1044/1515.css`):
-  pages `countrycoaches`, `cities`, `1st-workshop`, `uvar-survey`,
-  `uvar-box-workshop-2` keep their content but lose some styling.
+- **Elementor layout CSS for 9 posts**
+  (`post-32/701/796/1044/1327/1515/1522/1582/1727.css`): pages
+  `countrycoaches`, `1st-workshop`, `uvar-survey`, `cities`,
+  `internal-library`, `uvar-box-workshop-2`, `test_page_emw`,
+  `project-library-its-world-congress` and `uvar-exchange-project-partners`
+  keep their content but lose some styling (spacing, background images).
 - Internal link `/uvarexchange/` (never archived); per-category RSS feeds.
 - Dynamic features (contact forms, search, comments) don't work in a static copy.
 

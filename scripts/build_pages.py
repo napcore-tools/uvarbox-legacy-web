@@ -10,6 +10,8 @@ Copies SITE_DIR to OUT_DIR (which is replaced) and then:
 - makes sitemap and feed URLs absolute, as those formats require;
 - removes the Google Analytics tags, the WordPress login page and the
   references to sitemap stylesheets that were never archived;
+- points links to missing full-size images (lightbox targets) at the largest
+  surviving size;
 - adds an "archived copy" banner to every page and a 404.html.
 
 SITE_DIR itself is never modified. Files are processed as bytes, so encodings
@@ -17,6 +19,7 @@ and line endings are kept.
 """
 
 import argparse
+import glob
 import re
 import shutil
 import sys
@@ -45,6 +48,7 @@ GA_LEFTOVERS = [
 GA_IDS = re.compile(rb"G-XP5CWCFJX5|UA-236753116-1")
 XSL_PI = re.compile(rb"<\?xml-stylesheet[^>]*wp-sitemap[^>]*\?>\s*")
 BODY = re.compile(rb"<body\b[^>]*>")
+IMG_LINK = re.compile(rb"""(<a\b[^>]*?\bhref=)(['"])(/wp-content/uploads/[^'"?#]+\.(?:jpe?g|png|gif|webp))\2""", re.I)
 
 BANNER = (
     '<div id="uvarbox-archive-notice" role="note" style="background:#2b2b2b;color:#fff;'
@@ -98,6 +102,37 @@ def absolutize_text_urls(data, base_url):
     return re.subn(rb"(?<=>)(?=/(?!/))", base_url.rstrip("/").encode(), data)
 
 
+def largest_variant(site, url):
+    """Largest surviving WordPress size (name-WxH.ext) of a missing upload, as a URL."""
+    p = site / urllib.parse.unquote(url).lstrip("/")
+    stem = re.sub(r"(-scaled)?\.\w+$", "", p.name)
+    sizes = []
+    for c in p.parent.glob(glob.escape(stem) + "-*x*.*"):
+        m = re.fullmatch(re.escape(stem) + r"-(\d+)x(\d+)\.\w+", c.name)
+        if m:
+            sizes.append((int(m[1]), c))
+    if not sizes:
+        return None
+    return "/" + max(sizes)[1].relative_to(site).as_posix()
+
+
+def fix_image_links(data, site):
+    """Point <a href> links to missing uploads (lightbox originals) at the largest surviving size."""
+    changed = 0
+
+    def sub(m):
+        nonlocal changed
+        if (site / urllib.parse.unquote(m[3].decode()).lstrip("/")).is_file():
+            return m[0]
+        new = largest_variant(site, m[3].decode())
+        if not new:
+            return m[0]
+        changed += 1
+        return m[1] + m[2] + new.encode() + m[2]
+
+    return IMG_LINK.sub(sub, data), changed
+
+
 def is_feed_or_sitemap(path, data):
     return path.suffix == ".xml" or data.lstrip().startswith(b"<?xml")
 
@@ -106,7 +141,7 @@ def build_404(out):
     page = (out / "sample-page" / "index.html").read_bytes()
     page = re.sub(rb"<title>.*?</title>", b"<title>Page not found &#8211; UVAR Box</title>", page, count=1, flags=re.S)
     page = re.sub(rb"<link rel=['\"](?:canonical|shortlink)['\"][^>]*>\s*", b"", page)
-    page, n = re.subn(rb"<article\b.*</article>", lambda m: NOT_FOUND.encode(), page, count=1, flags=re.S)
+    page, n = re.subn(rb"<article\b.*</article>", lambda _: NOT_FOUND.encode(), page, count=1, flags=re.S)
     if n != 1:
         sys.exit("404 template: <article> not found in sample-page")
     return page
@@ -127,16 +162,19 @@ def main():
     segments = {p.name for p in args.site.iterdir()} | EXTRA_SEGMENTS
     seg_re = segment_pattern(segments)
 
+    # Empty OUT_DIR rather than delete it, so a server running in it does not
+    # block the rebuild on Windows.
     if args.out.exists():
-        shutil.rmtree(args.out)
-    shutil.copytree(args.site, args.out)
+        for child in args.out.iterdir():
+            shutil.rmtree(child) if child.is_dir() else child.unlink()
+    shutil.copytree(args.site, args.out, dirs_exist_ok=True)
     for name in DROP:
         shutil.rmtree(args.out / name)
 
     # Created before the rewrite pass so its links get the same treatment.
     (args.out / "404.html").write_bytes(build_404(args.out))
 
-    stats = {"files": 0, "paths": 0, "absolute": 0, "ga": 0, "banner": 0}
+    stats = {"files": 0, "paths": 0, "absolute": 0, "ga": 0, "banner": 0, "image links": 0}
     for f in sorted(args.out.rglob("*")):
         if not f.is_file() or f.suffix not in TEXT_EXT:
             continue
@@ -154,6 +192,10 @@ def main():
             data = XSL_PI.sub(b"", data)
             data, n = absolutize_text_urls(data, base_url)
             stats["absolute"] += n
+
+        if f.suffix == ".html":
+            data, n = fix_image_links(data, args.out)
+            stats["image links"] += n
 
         if base_path:
             data, n = prefix_paths(data, seg_re, base_path)
