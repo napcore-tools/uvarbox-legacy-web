@@ -78,20 +78,33 @@ Each page is the **latest** archived capture (most from 2024–2026).
    versions too. All pages request `ver=3.29.2`, the version the site ran when
    they were captured. The missing gallery bundle `pa-frontend-9baf52c27` is a
    copy of the identical gallery bundle used by the other gallery pages.
+8. Truncated PDFs: 13 PDFs were saved cut off at exactly 1 or 5 MiB, because
+   the latest Wayback captures (mostly from 2024) are partial. 11 were
+   replaced with an older capture that is complete (ends with `%%EOF` and
+   matches the length in its linearization header).
 
 ## Known gaps (never archived)
 
 - **29 images**, including the homepage hero photo (gradient overlay shows
   without it) and several stock/event photos — see `lost-images.txt`.
 - **9 attachments**: 7 PPTX/DOCX presentations and agendas, a submission sheet,
-  `scriptTableUvarSimple.zip`. All 67 PDFs are present.
+  `scriptTableUvarSimple.zip`.
+- **2 truncated PDFs**: `2022/09/0803_UVAR-BOX_Brochure_WEB.pdf` (the
+  homepage "Brochure" button) and
+  `2022/10/UMD_22_Lucy_Sadler_ReVeAL-UVARBox-sections.pdf` exist only as one
+  capture cut off at 1 MiB, so they do not open. The other 65 PDFs are
+  complete.
 - **Elementor layout CSS for 9 posts**
   (`post-32/701/796/1044/1327/1515/1522/1582/1727.css`): pages
   `countrycoaches`, `1st-workshop`, `uvar-survey`, `cities`,
   `internal-library`, `uvar-box-workshop-2`, `test_page_emw`,
   `project-library-its-world-congress` and `uvar-exchange-project-partners`
   keep their content but lose some styling (spacing, background images).
-- Internal link `/uvarexchange/` (never archived); per-category RSS feeds.
+- Per-category RSS feeds.
+- `/uvarexchange/` (the homepage "UVAR Exchange" button) was a 301 redirect
+  that WordPress guessed to `/uvarexchange_cities_workshop/`. The Pages build
+  adds a redirect page to `/uvar-exchange/` instead, the project page the
+  button means.
 - Dynamic features (contact forms, search, comments) don't work in a static copy.
 
 A complete original (files + database) may still exist at Combell while the

@@ -12,7 +12,8 @@ Copies SITE_DIR to OUT_DIR (which is replaced) and then:
   references to sitemap stylesheets that were never archived;
 - points links to missing full-size images (lightbox targets) at the largest
   surviving size;
-- adds an "archived copy" banner to every page and a 404.html.
+- adds an "archived copy" banner to every page, a 404.html and redirect
+  pages (REDIRECTS) for addresses the live site redirected.
 
 SITE_DIR itself is never modified. Files are processed as bytes, so encodings
 and line endings are kept.
@@ -34,6 +35,24 @@ TEXT_EXT = {".html", ".css", ".xml", ".txt"}
 EXTRA_SEGMENTS = {"wp-json", "wp-login.php", "xmlrpc.php", "uvarexchange", "elementor-hf", "comments"}
 # Pages to leave out of the published site.
 DROP = ["wp-admin"]
+# Redirect pages (GitHub Pages has no server-side redirects). The live site
+# sent /uvarexchange/ to /uvarexchange_cities_workshop/ through WordPress's
+# 404 slug guessing; the buttons linking to it mean the project page.
+REDIRECTS = {"uvarexchange": "/uvar-exchange/"}
+REDIRECT_PAGE = """<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<title>Redirecting&#8230; &#8211; UVAR Box</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="{target}">
+<meta http-equiv="refresh" content="0; url={target}">
+</head>
+<body>
+<p>This page has moved to <a href="{target}">{target}</a>.</p>
+</body>
+</html>
+"""
 
 GA_BLOCK = re.compile(
     rb"<!-- Google (?:tag \(gtag\.js\)|Analytics) snippet added by Site Kit -->.*?"
@@ -171,8 +190,13 @@ def main():
     for name in DROP:
         shutil.rmtree(args.out / name)
 
-    # Created before the rewrite pass so its links get the same treatment.
+    # Created before the rewrite pass so their links get the same treatment.
     (args.out / "404.html").write_bytes(build_404(args.out))
+    for src, target in REDIRECTS.items():
+        if (args.out / src).exists():
+            sys.exit(f"redirect source /{src}/ exists in the mirror")
+        (args.out / src).mkdir()
+        (args.out / src / "index.html").write_text(REDIRECT_PAGE.format(target=target), encoding="utf-8")
 
     stats = {"files": 0, "paths": 0, "absolute": 0, "ga": 0, "banner": 0, "image links": 0}
     for f in sorted(args.out.rglob("*")):
