@@ -15,13 +15,35 @@ python3 -m http.server 8765 --directory site
 All internal links are root-relative, so the site must be served from the
 web root (not opened via `file://`).
 
+## GitHub Pages
+
+The site is published at <https://napcore-tools.github.io/uvarbox-legacy-web/>
+by `.github/workflows/pages.yml` on every push to `master`. `site/` stays the
+untouched mirror; the workflow runs `scripts/build_pages.py`, which writes a
+deployable copy to `_site/` and:
+
+- prefixes all root-relative URLs (HTML attributes, `srcset`, CSS `url()`,
+  JSON-escaped paths in inline scripts, robots.txt) with the Pages path, and
+  makes sitemap and feed URLs absolute;
+- removes the Google Analytics tags, the WordPress login page (`wp-admin/`)
+  and links to sitemap stylesheets that were never archived;
+- adds an "archived copy" notice at the top of every page and a `404.html`.
+
+The URL prefix comes from the Pages settings (`configure-pages` `base_url`),
+so moving to a custom domain only needs the domain set in the repository's
+Pages settings. To build locally:
+
+```sh
+python3 -I scripts/build_pages.py site _site --base-url https://napcore-tools.github.io/uvarbox-legacy-web
+```
+
 ## Contents
 
 | Path | What |
 |---|---|
 | `site/` | The mirror: 85 pages, 67 PDFs, 331 images (656 files, ~178 MB) |
 | `site-raw/` | Same, before `<img>` references were cleaned (see below) |
-| `scripts/` | Tools used to build the mirror |
+| `scripts/` | Tools used to build the mirror, and `build_pages.py` for GitHub Pages |
 | `vendor-pkgs/` | Official wordpress.org packages used to restore plugin assets |
 | `missing.txt` | Everything referenced but not archived (incl. resized image variants) |
 | `lost-images.txt` | Images with no archived copy in any size |

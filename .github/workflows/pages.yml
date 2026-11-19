@@ -1,0 +1,53 @@
+# Builds the GitHub Pages copy of the mirror (scripts/build_pages.py) from
+# site/ and deploys it. The URL prefix comes from the Pages configuration, so
+# adding a custom domain later needs no change here.
+name: Deploy site to Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # site-raw/ and vendor-pkgs/ are not needed to build.
+          sparse-checkout: |
+            site
+            scripts
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Build
+        run: python3 -I scripts/build_pages.py site _site --base-url "${{ steps.pages.outputs.base_url }}"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
