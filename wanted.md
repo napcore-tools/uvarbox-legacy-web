@@ -58,7 +58,6 @@ All on `/countrycoaches/`.
 | `/wp-content/uploads/2021/03/workshop-paper-issue-1345512-1024x682.jpg` (also `-768x512`) | `/uvar-box-workshop-2/`, event listings |
 | `/wp-content/uploads/2021/08/workshop_small-1024x512.jpg` | `/3rd-uvarbox-workshop/`, event listings |
 | `/wp-content/uploads/2021/11/survey_Shutterstock-1024x683.jpg` | `/uvarexchange-survey/`, news listings |
-| `/wp-content/uploads/2022/04/ITS_Armis-300x178.png` | `/project-partners/` |
 | `/wp-content/uploads/2022/06/HERE-Prez1-1024x576.jpg` | `/uvars-were-a-hot-topic-at-the-its-congress-in-toulouse/` |
 | `/wp-content/uploads/2022/06/NDM-Prez2-1024x768.jpeg` | `/uvars-were-a-hot-topic-at-the-its-congress-in-toulouse/` |
 | `/wp-content/uploads/2022/06/UVAR-Ex-Prez1-1-1024x576.jpg` | `/uvars-were-a-hot-topic-at-the-its-congress-in-toulouse/` |
@@ -107,3 +106,6 @@ spacing, columns and backgrounds.
 - `0803_UVAR-BOX_Brochure_WEB.pdf`, `submission_sheet.docx` and
   `scriptTableUvarSimple.zip`: recovered from the NAPCORE-X T5.2 working
   folder (see README, step 9).
+- `2022/04/ITS_Armis-300x178.png` on `/project-partners/`: replaced by the
+  surviving ARMIS logo `2022/01/Armis-Copy.png`, which the UVAR Exchange
+  partner pages use. The original is still welcome if it turns up.

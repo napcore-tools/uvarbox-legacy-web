@@ -68,7 +68,10 @@ Each page is the **latest** archived capture (most from 2024–2026).
 5. `scripts/make_variants.py` — regenerated resized image variants whose
    original survived (only 3 could be).
 6. `scripts/fix_images.py site` — removed `srcset` entries pointing to missing
-   files and switched missing `src` to the largest surviving size.
+   files and switched missing `src` to the largest surviving size. On
+   `/project-partners/` the ARMIS logo `2022/04/ITS_Armis-300x178.png` (no
+   size survives) was pointed by hand at `2022/01/Armis-Copy.png`, the ARMIS
+   logo the UVAR Exchange partner pages use.
 7. Files that Elementor loads from JavaScript at runtime, which the crawler
    never saw: the 22 webpack widget chunks (`assets/js/*.bundle.min.js`,
    e.g. toggle, accordion, tabs, lightbox), `lib/swiper/v8/swiper.min.js` and
