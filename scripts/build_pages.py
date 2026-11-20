@@ -94,11 +94,14 @@ IMG_LINK = re.compile(rb"""(<a\b[^>]*?\bhref=)(['"])(/wp-content/uploads/[^'"?#]
 
 BANNER = (
     '<div id="uvarbox-archive-notice" role="note" style="background:#2b2b2b;color:#fff;'
-    "font:14px/1.4 Arial,Helvetica,sans-serif;text-align:center;padding:8px 16px;"
+    "font:14px/1.5 Arial,Helvetica,sans-serif;text-align:center;padding:12px 16px;"
     'position:relative;z-index:100000">'
     "This is an archived copy of the former uvarbox.eu website (UVAR Box and UVAR Exchange projects). "
     "It is no longer updated; forms, search and comments do not work."
-    "</div>"
+    '<div style="margin-top:6px;font-size:16px;font-weight:bold">'
+    f'Visit the new UVARBOX website: <a href="{NEW_SITE}" style="color:#ffd84d;text-decoration:underline">'
+    f'{NEW_SITE.split("://")[1].rstrip("/")}</a>'
+    "</div></div>"
 )
 
 NOT_FOUND = """<article class="page type-page status-publish ast-article-single" id="post-404">
