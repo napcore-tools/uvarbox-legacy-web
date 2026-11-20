@@ -31,19 +31,7 @@ home page hero shows an empty gradient without them.
 | `/wp-content/uploads/2020/12/UVAR-Box-V3_kleurverlopen_UVAR-Box_Image5-with-gradient-NO-LOGO-2-scaled.jpg` | Home page |
 | `/wp-content/uploads/2020/12/UVAR-Box-V3_kleurverlopen_UVAR-Box_Image6-with-gradient-NO-LOGO-1-scaled.jpg` | Home page |
 
-## 3. Country coaches photos
-
-All on `/countrycoaches/`.
-
-- `/wp-content/uploads/2020/12/Germany_small-1024x676.jpg`
-- `/wp-content/uploads/2020/12/Italien2020-131-1024x678.jpg`
-- `/wp-content/uploads/2020/12/Office_Small-1024x683.jpg`
-- `/wp-content/uploads/2020/12/shutterstock_628197134-1024x624.jpg`
-- `/wp-content/uploads/2020/12/shutterstock_728377600-1024x683.jpg`
-- `/wp-content/uploads/2021/01/shutterstock_1216888468-1024x727.jpg`
-- `/wp-content/uploads/2021/01/shutterstock_272865644-1024x683.jpg`
-
-## 4. Other page images
+## 3. Other page images
 
 | File | Used on |
 |---|---|
@@ -68,7 +56,7 @@ All on `/countrycoaches/`.
 | `/wp-content/uploads/2021/03/11-EMW-Cyclist-Female-with-Baby.png` | `/test_page_emw/` (test page, low priority) |
 | `/wp-content/uploads/2021/03/MA_Label.jpg` | `/test_page_emw/` (test page, low priority) |
 
-## 5. Page stylesheets
+## 4. Page stylesheets
 
 Elementor's per-page layout CSS. Without it a page keeps its content but loses
 spacing, columns and backgrounds.
@@ -85,7 +73,7 @@ spacing, columns and backgrounds.
 | `/wp-content/uploads/elementor/css/post-1327.css` | `/internal-library/` (password-protected page, low priority) |
 | `/wp-content/uploads/elementor/css/post-1522.css` | `/test_page_emw/` (test page, low priority) |
 
-## 6. Downloadable attachments
+## 5. Downloadable attachments
 
 | File | Linked from |
 |---|---|
@@ -109,3 +97,5 @@ spacing, columns and backgrounds.
 - `2022/04/ITS_Armis-300x178.png` on `/project-partners/`: replaced by the
   surviving ARMIS logo `2022/01/Armis-Copy.png`, which the UVAR Exchange
   partner pages use. The original is still welcome if it turns up.
+- The seven country coaches photos on `/countrycoaches/`: supplied by hand
+  at about 810px wide (the page asks for 1024px).

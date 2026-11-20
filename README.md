@@ -100,8 +100,10 @@ Each page is the **latest** archived capture (most from 2024–2026).
 
 ## Known gaps (never archived)
 
-- **29 images**, including the homepage hero photo (gradient overlay shows
-  without it) and several stock/event photos — see `lost-images.txt`.
+- **22 images**, including the homepage hero photo (gradient overlay shows
+  without it) and several stock/event photos — see `lost-images.txt`, which
+  lists 29: the seven country coaches photos on `/countrycoaches/` were later
+  supplied by hand (about 810px wide, the page asks for 1024px).
 - **7 attachments**: PPTX/DOCX presentations and agendas.
 - **1 truncated PDF**:
   `2022/10/UMD_22_Lucy_Sadler_ReVeAL-UVARBox-sections.pdf` exists only as one
