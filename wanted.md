@@ -8,13 +8,12 @@ account, or the project partners for documents and presentations.
 For images any size is useful. The original upload (without the `-WxH`
 suffix) is best; the size listed is the one the page uses.
 
-## 1. Truncated PDFs
+## 1. Truncated PDF
 
-Only one capture exists of each, cut off at 1 MiB, so they do not open.
+Only one capture exists, cut off at 1 MiB, so it does not open.
 
 | File | Linked from |
 |---|---|
-| `/wp-content/uploads/2022/09/0803_UVAR-BOX_Brochure_WEB.pdf` (full size 3,187,805 bytes) | Home page "Brochure" button |
 | `/wp-content/uploads/2022/10/UMD_22_Lucy_Sadler_ReVeAL-UVARBox-sections.pdf` | `/uvarbox-at-umd/` |
 
 ## 2. Background images
@@ -98,8 +97,6 @@ spacing, columns and backgrounds.
 | `/wp-content/uploads/2021/09/UVARbox-Workshop3-NL-and-BE-slides-v2.pptx` | `/uvar-box-workshop-3-summary/` |
 | `/wp-content/uploads/2021/10/Status-update_EC-Stand-13102021.pptx` | `/uvarbox-ec-its/` |
 | `/wp-content/uploads/2021/10/UvarBox-update_CF-20102021_PedroBarradas.pptx` | `/uvars-civitas-2021/` |
-| `/wp-content/uploads/2022/05/scriptTableUvarSimple.zip` | `/events/hackathon/` |
-| `/wp-content/uploads/2022/05/submission_sheet.docx` | `/events/hackathon/` |
 
 ## Already handled, not needed
 
@@ -107,3 +104,6 @@ spacing, columns and backgrounds.
   (`Group_UVARBox.png`, `PXL_20211013_133244656-scaled.jpg`,
   `PXL_20211013_134429959-scaled.jpg`): the build links their 2048px copies.
 - `/uvarexchange/`: the build adds a redirect page to `/uvar-exchange/`.
+- `0803_UVAR-BOX_Brochure_WEB.pdf`, `submission_sheet.docx` and
+  `scriptTableUvarSimple.zip`: recovered from the NAPCORE-X T5.2 working
+  folder (see README, step 9).

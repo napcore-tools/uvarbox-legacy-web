@@ -186,8 +186,6 @@
 /wp-content/uploads/2022/03/Road-signs-768x342.jpg
 /wp-content/uploads/2022/04/ITS_Armis-300x178.png
 /wp-content/uploads/2022/04/ITS_Armis.png
-/wp-content/uploads/2022/05/scriptTableUvarSimple.zip
-/wp-content/uploads/2022/05/submission_sheet.docx
 /wp-content/uploads/2022/06/HERE-Prez1-1024x576.jpg
 /wp-content/uploads/2022/06/HERE-Prez1-1536x864.jpg
 /wp-content/uploads/2022/06/HERE-Prez1-300x169.jpg

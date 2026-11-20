@@ -41,7 +41,7 @@ python3 -I scripts/build_pages.py site _site --base-url https://napcore-tools.gi
 
 | Path | What |
 |---|---|
-| `site/` | The mirror: 85 pages, 67 PDFs, 331 images (656 files, ~178 MB) |
+| `site/` | The mirror: 85 pages, 67 PDFs, 331 images (685 files, ~196 MB) |
 | `site-raw/` | Same, before `<img>` references were cleaned (see below) |
 | `scripts/` | Tools used to build the mirror, and `build_pages.py` for GitHub Pages |
 | `vendor-pkgs/` | Official wordpress.org packages used to restore plugin assets |
@@ -83,17 +83,23 @@ Each page is the **latest** archived capture (most from 2024–2026).
    the latest Wayback captures (mostly from 2024) are partial. 11 were
    replaced with an older capture that is complete (ends with `%%EOF` and
    matches the length in its linearization header).
+9. Files recovered from the NAPCORE-X T5.2 working folder (collected
+   2026-09-29 from the then-live site), which is not part of this repository:
+   the brochure `2022/09/0803_UVAR-BOX_Brochure_WEB.pdf`, and the hackathon
+   attachments `2022/05/submission_sheet.docx` and
+   `2022/05/scriptTableUvarSimple.zip`. The local brochure carried a 15 KB
+   incremental save appended after the original `%%EOF`; it was cut at byte
+   3,187,805, the length in its linearization header, which gives the file
+   as published. Its first 1 MiB matches the truncated Wayback capture.
 
 ## Known gaps (never archived)
 
 - **29 images**, including the homepage hero photo (gradient overlay shows
   without it) and several stock/event photos — see `lost-images.txt`.
-- **9 attachments**: 7 PPTX/DOCX presentations and agendas, a submission sheet,
-  `scriptTableUvarSimple.zip`.
-- **2 truncated PDFs**: `2022/09/0803_UVAR-BOX_Brochure_WEB.pdf` (the
-  homepage "Brochure" button) and
-  `2022/10/UMD_22_Lucy_Sadler_ReVeAL-UVARBox-sections.pdf` exist only as one
-  capture cut off at 1 MiB, so they do not open. The other 65 PDFs are
+- **7 attachments**: PPTX/DOCX presentations and agendas.
+- **1 truncated PDF**:
+  `2022/10/UMD_22_Lucy_Sadler_ReVeAL-UVARBox-sections.pdf` exists only as one
+  capture cut off at 1 MiB, so it does not open. The other 66 PDFs are
   complete.
 - **Elementor layout CSS for 9 posts**
   (`post-32/701/796/1044/1327/1515/1522/1582/1727.css`): pages
