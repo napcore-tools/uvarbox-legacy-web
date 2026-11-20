@@ -27,7 +27,10 @@ deployable copy to `_site/` and:
   makes sitemap and feed URLs absolute;
 - removes the Google Analytics tags, the WordPress login page (`wp-admin/`)
   and links to sitemap stylesheets that were never archived;
-- adds an "archived copy" notice at the top of every page and a `404.html`.
+- adds an "archived copy" notice at the top of every page and a `404.html`;
+- points links to closed external forms (the "Stay connected" buttons, the
+  newsletter questionnaire, hackathon sign-ups and the project surveys) at a
+  generated `/legacy-site/` page that links to the new site. The forms are listed in `FORM_LINKS` in `build_pages.py`.
 
 The URL prefix comes from the Pages settings (`configure-pages` `base_url`),
 so moving to a custom domain only needs the domain set in the repository's

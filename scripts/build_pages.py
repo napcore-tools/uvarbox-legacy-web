@@ -13,7 +13,9 @@ Copies SITE_DIR to OUT_DIR (which is replaced) and then:
 - points links to missing full-size images (lightbox targets) at the largest
   surviving size;
 - adds an "archived copy" banner to every page, a 404.html and redirect
-  pages (REDIRECTS) for addresses the live site redirected.
+  pages (REDIRECTS) for addresses the live site redirected;
+- points links to closed external forms (FORM_LINKS) at a generated
+  /legacy-site/ page that links to the new site (NEW_SITE).
 
 SITE_DIR itself is never modified. Files are processed as bytes, so encodings
 and line endings are kept.
@@ -21,6 +23,7 @@ and line endings are kept.
 
 import argparse
 import glob
+import html
 import re
 import shutil
 import sys
@@ -53,6 +56,26 @@ REDIRECT_PAGE = """<!DOCTYPE html>
 </body>
 </html>
 """
+
+NEW_SITE = "https://napcore-tools.github.io/uvarbox-web/"
+LEGACY_PAGE = "legacy-site"
+# Links to external forms and surveys that are closed. Any <a href> starting
+# with one of these (scheme ignored) is pointed at /legacy-site/.
+FORM_LINKS = [
+    # "Stay in Touch" / "Stay Connected with UVARBOX" / "Contact us" (Google form)
+    "https://forms.gle/yyVvT4KvRcRxYrwX7",
+    "https://docs.google.com/forms/d/e/1FAIpQLSdGQmRx0AcL1nqvAQcw-mBV6G3ALrN4idNV1RWBff30i9Dfjw/",
+    # "Stay connected with UVARExchange" / "Register for the newsletter" (Panteia questionnaire)
+    "https://panteia.nebu.com/",
+    # Hackathon sign-up and registration (Google forms)
+    "https://forms.gle/pSi3mxMx6zYrHvxd7",
+    "https://docs.google.com/forms/d/e/1FAIpQLSd4RkdyGHxQfDHazUDdhickXcz5W8xAjWrosdML5YQpqvp84Q/",
+    # UVAR Box survey (LamaPoll) on /uvar-survey/
+    "https://survey.lamapoll.de/UVAR-BOX-",
+    # UVAR Exchange traffic sign survey and project survey (EU Survey)
+    "https://ec.europa.eu/eusurvey/runner/61792efa-bd40-1553-1457-9a1009815a0b",
+    "https://ec.europa.eu/eusurvey/runner/UVARExchange_Project_Survey_November_2021",
+]
 
 GA_BLOCK = re.compile(
     rb"<!-- Google (?:tag \(gtag\.js\)|Analytics) snippet added by Site Kit -->.*?"
@@ -90,6 +113,25 @@ NOT_FOUND = """<article class="page type-page status-publish ast-article-single"
 		<a href="/library/">library</a>.</p>
 	</div>
 </article>"""
+
+
+LEGACY = f"""<article class="page type-page status-publish ast-article-single" id="post-legacy">
+	<header class="entry-header ast-header-without-markup">
+		<h1 class="entry-title">This is a legacy site</h1>
+	</header>
+	<div class="entry-content clear">
+		<p>You are viewing an archived copy of the former uvarbox.eu website of the UVAR Box
+		and UVAR Exchange projects. It is no longer updated, and the forms, surveys and
+		newsletter sign-ups it linked to are closed.</p>
+		<p>For current information and to stay in touch, visit the new UVARBOX website:
+		<a href="{NEW_SITE}">{NEW_SITE.split("://")[1].rstrip("/")}</a>.</p>
+		<p><a href="/">Back to the archived home page</a></p>
+	</div>
+</article>"""
+
+A_TAG = re.compile(rb"<a\b[^>]*>", re.I)
+HREF = re.compile(rb"""\bhref=(["'])(.*?)\1""", re.I | re.S)
+TARGET = re.compile(rb"""\s+(?:target=(["'])_blank\1|rel=(["'])[^"']*\2)""", re.I)
 
 
 def segment_pattern(segments):
@@ -152,17 +194,40 @@ def fix_image_links(data, site):
     return IMG_LINK.sub(sub, data), changed
 
 
+def is_form_link(url):
+    url = html.unescape(url).split("://", 1)[-1]
+    return any(url.startswith(f.split("://", 1)[-1]) for f in FORM_LINKS)
+
+
+def fix_form_links(data):
+    """Point links to closed forms at /legacy-site/, opening in the same tab."""
+    changed = 0
+
+    def sub(m):
+        nonlocal changed
+        tag = m[0]
+        h = HREF.search(tag)
+        if not h or not is_form_link(h[2].decode("utf-8", "replace")):
+            return tag
+        changed += 1
+        tag = tag[: h.start()] + b'href="/' + LEGACY_PAGE.encode() + b'/"' + tag[h.end() :]
+        return TARGET.sub(b"", tag)
+
+    return A_TAG.sub(sub, data), changed
+
+
 def is_feed_or_sitemap(path, data):
     return path.suffix == ".xml" or data.lstrip().startswith(b"<?xml")
 
 
-def build_404(out):
+def page_from_template(out, title, article):
+    """A page in the site's look: sample-page with its <article> replaced."""
     page = (out / "sample-page" / "index.html").read_bytes()
-    page = re.sub(rb"<title>.*?</title>", b"<title>Page not found &#8211; UVAR Box</title>", page, count=1, flags=re.S)
+    page = re.sub(rb"<title>.*?</title>", f"<title>{title} &#8211; UVAR Box</title>".encode(), page, count=1, flags=re.S)
     page = re.sub(rb"<link rel=['\"](?:canonical|shortlink)['\"][^>]*>\s*", b"", page)
-    page, n = re.subn(rb"<article\b.*</article>", lambda _: NOT_FOUND.encode(), page, count=1, flags=re.S)
+    page, n = re.subn(rb"<article\b.*</article>", lambda _: article.encode(), page, count=1, flags=re.S)
     if n != 1:
-        sys.exit("404 template: <article> not found in sample-page")
+        sys.exit("page template: <article> not found in sample-page")
     return page
 
 
@@ -178,7 +243,7 @@ def main():
     if not base_url.startswith(("http://", "https://")):
         sys.exit("--base-url must be an absolute http(s) URL")
 
-    segments = {p.name for p in args.site.iterdir()} | EXTRA_SEGMENTS
+    segments = {p.name for p in args.site.iterdir()} | EXTRA_SEGMENTS | {LEGACY_PAGE}
     seg_re = segment_pattern(segments)
 
     # Empty OUT_DIR rather than delete it, so a server running in it does not
@@ -191,14 +256,18 @@ def main():
         shutil.rmtree(args.out / name)
 
     # Created before the rewrite pass so their links get the same treatment.
-    (args.out / "404.html").write_bytes(build_404(args.out))
+    (args.out / "404.html").write_bytes(page_from_template(args.out, "Page not found", NOT_FOUND))
+    if (args.out / LEGACY_PAGE).exists():
+        sys.exit(f"/{LEGACY_PAGE}/ exists in the mirror")
+    (args.out / LEGACY_PAGE).mkdir()
+    (args.out / LEGACY_PAGE / "index.html").write_bytes(page_from_template(args.out, "Legacy site", LEGACY))
     for src, target in REDIRECTS.items():
         if (args.out / src).exists():
             sys.exit(f"redirect source /{src}/ exists in the mirror")
         (args.out / src).mkdir()
         (args.out / src / "index.html").write_text(REDIRECT_PAGE.format(target=target), encoding="utf-8")
 
-    stats = {"files": 0, "paths": 0, "absolute": 0, "ga": 0, "banner": 0, "image links": 0}
+    stats = {"files": 0, "paths": 0, "absolute": 0, "ga": 0, "banner": 0, "image links": 0, "form links": 0}
     for f in sorted(args.out.rglob("*")):
         if not f.is_file() or f.suffix not in TEXT_EXT:
             continue
@@ -220,6 +289,8 @@ def main():
         if f.suffix == ".html":
             data, n = fix_image_links(data, args.out)
             stats["image links"] += n
+            data, n = fix_form_links(data)
+            stats["form links"] += n
 
         if base_path:
             data, n = prefix_paths(data, seg_re, base_path)
